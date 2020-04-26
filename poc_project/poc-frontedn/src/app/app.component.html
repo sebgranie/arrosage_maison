@@ -1,0 +1,10 @@
+
+List of students
+
+<ul *ngFor="let student of students">
+  <li> Name : {{student.name}} </li>
+  <li>Age : {{student.age}}</li>
+  <li>Spec : {{student.spec}}</li>
+  <button (click)="deleteStudent(student.id)">Delete student</button>
+</ul>
+
