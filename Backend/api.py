@@ -13,6 +13,10 @@ class ProgramsAPI(Resource):
     def get(self):
         return GetAllProgramsAsJSON()
 
+     def delete(self, program_id):
+        program_manager = GetProgramManager()
+        program_manager.DeleteProgramById(program_id)
+
 if __name__ == "__main__":
 
     app = Flask(__name__)
