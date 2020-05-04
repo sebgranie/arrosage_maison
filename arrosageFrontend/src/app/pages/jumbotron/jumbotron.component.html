@@ -1,0 +1,104 @@
+<nav class="navbar sticky-top  navbar-expand-md navbar-dark bg-dark">
+  <a class="navbar-brand over" (click)="scrollToElement('accueil')">🌱</a>
+  <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#mainNavBar">
+    <span class="navbar-toggler-icon"></span>
+  </button>
+
+  <div class="collapse navbar-collapse" id="mainNavBar">
+    <ul class="navbar-nav mr-auto">
+
+      <li class="nav-item">
+        <a class="nav-link over" (click)="scrollToElement('planning')">Planning</a>
+      </li>
+
+      <li class="nav-item">
+        <a class="nav-link over" (click)="scrollToElement('reseau')">Réseau</a>
+      </li>
+
+      <li class="nav-item">
+        <a class="nav-link over" (click)="scrollToElement('programmes')">Programmes</a>
+      </li>
+
+    </ul>
+
+    <div>
+      <button class="btn btn-outline-danger">Déconnexion</button>
+    </div>
+
+  </div>
+</nav>
+
+<div id="accueil" style="height: calc(40vh); text-align: center; color: white ;background-color: #2E8B57;">
+  <h1> Projet Arrosage</h1>
+
+  <p>Interface d'automatisation de l'arrosage de la maison</p>
+</div>
+
+
+
+<div id="planning" style="height: calc(100vh); text-align: center; background-color: #D3D3D3">
+  <h1>Planning </h1>
+</div>
+
+
+
+<div id="reseau" style=" text-align: center; background-color: #DCDCDC">
+  <h1>Réseau</h1>
+  <img class="img-fluid" style="max-width: 60%; height: auto; padding-top: 40px; padding-bottom: 30px;"
+    src='../../../assets/DJI_0453.JPG' />
+</div>
+
+
+
+<div id="programmes" style="height: calc(100vh); text-align: center; background-color: #D3D3D3">
+
+  <h1>Programmes</h1>
+
+  <div style="padding: 50px;" class="row">
+    <div style="padding: 20px;" class="col">
+      <table class="table">
+        <thead>
+          <tr>
+            <th scope="col">Id</th>
+            <th scope="col">Nom</th>
+            <th scope="col">Prochain lancement</th>
+            <th scope="col">Durée</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <th scope="row">1</th>
+            <td>Programme 1</td>
+            <td>Mardi, 14:00</td>
+            <td>1h</td>
+          </tr>
+          <tr>
+            <th scope="row">2</th>
+            <td>Programme 2</td>
+            <td>Lundi, 16:00</td>
+            <td>1h30</td>
+          </tr>
+          <tr>
+            <th scope="row">3</th>
+            <td>Programme 3</td>
+            <td>Mardi, 21:00</td>
+            <td>3h</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+
+  <div class="row">
+    <div class="col">
+      <button class="btn btn-primary" (click)="goToCreation()">Créer un programme</button>
+    </div>
+    <div class="col">
+      <button class="btn btn-secondary">Modifier un programme</button>
+    </div>
+    <div class="col">
+      <button class="btn btn-danger">Supprimer un programme</button>
+    </div>
+  </div>
+
+</div>
