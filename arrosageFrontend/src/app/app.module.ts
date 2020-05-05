@@ -3,7 +3,7 @@ import { NgModule } from '@angular/core';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { JumbotronComponent } from './pages/jumbotron/jumbotron.component';
-import { FormsModule } from '@angular/forms';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { PlanningComponent } from './pages/planning/planning.component';
 import { ReseauComponent } from './pages/reseau/reseau.component';
 import { CreationProgrammeComponent } from './pages/programmes/creation-programme/creation-programme.component';
@@ -16,6 +16,8 @@ import { adapterFactory } from 'angular-calendar/date-adapters/date-fns';
 import { registerLocaleData } from '@angular/common';
 import localeFr from '@angular/common/locales/fr';
 registerLocaleData(localeFr);
+import { NgbModalModule } from '@ng-bootstrap/ng-bootstrap';
+import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 
 @NgModule({
   declarations: [
@@ -34,6 +36,9 @@ registerLocaleData(localeFr);
       provide: DateAdapter,
       useFactory: adapterFactory,
     }),
+    ReactiveFormsModule,
+    NgbModule,
+    NgbModalModule,
     FormsModule,
     BrowserModule,
     AppRoutingModule
