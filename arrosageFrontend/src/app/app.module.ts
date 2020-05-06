@@ -13,6 +13,9 @@ import { ProgrammesComponent } from './pages/programmes/programmes.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { CalendarModule, DateAdapter } from 'angular-calendar';
 import { adapterFactory } from 'angular-calendar/date-adapters/date-fns';
+import { registerLocaleData } from '@angular/common';
+import localeFr from '@angular/common/locales/fr';
+registerLocaleData(localeFr);
 
 @NgModule({
   declarations: [
