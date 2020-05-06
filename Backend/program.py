@@ -4,7 +4,14 @@ programs_file = 'programs.json'
 
 class Program(object):
     def __init__(self):
-        pass
+        self.jours_semaine = []
+
+class ProgramManager():
+    def __init__(self, programs):
+      self.programs = programs
+
+    def __del__(self):
+        SaveProgramsToJson(self.programs)
 
 def GetAllProgramsAsJSON():
     with open(programs_file) as json_file:
@@ -15,7 +22,7 @@ def GetAllPrograms():
         data = json.load(json_file)
         programs = []
         for programs_json in data['programs']:
-            pass
+
         return programs
 
 if __name__ == "__main__":
