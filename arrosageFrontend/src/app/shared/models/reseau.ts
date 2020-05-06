@@ -1,7 +1,11 @@
+
+export interface Point {
+  x: number;
+  y: number;
+}
+
 export interface Reseau {
   id: number;
-  duration: {
-    hour: number,
-    minute: number
-  };
+  location: string;
+  polygons: Point[][];
 }

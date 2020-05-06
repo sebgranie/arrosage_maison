@@ -1,9 +1,13 @@
-import { Reseau } from './reseau';
+import { ArrosageReseau } from './arrosage-reseau';
 
 export interface Programme {
-  id: string;
+  id: number;
   name: string;
+  active: boolean;
   days: string[];
-  startTime: string;
-  reseaux: Reseau[];
+  startTime: {
+    hour: number,
+    minute: number
+  };
+  arrosageReseaux: ArrosageReseau[];
 }
