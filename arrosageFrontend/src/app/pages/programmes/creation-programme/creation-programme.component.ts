@@ -4,6 +4,7 @@ import { FormGroup, FormArray, FormBuilder, FormControl, Validators } from '@ang
 import { Programme } from '../../../shared/models/programme';
 import { Reseau } from '../../../shared/models/reseau';
 import { ArrosageReseau } from '../../../shared/models/arrosage-reseau';
+import { HttpClient } from '@angular/common/http';
 
 @Component({
   selector: 'app-creation-programme',
@@ -21,7 +22,7 @@ export class CreationProgrammeComponent implements OnInit {
   form: FormGroup;
   tableauDeReseaux: string[];
 
-  constructor(private formBuilder: FormBuilder, public activeModal: NgbActiveModal) { }
+  constructor(private formBuilder: FormBuilder, public activeModal: NgbActiveModal, private http: HttpClient) { }
 
   ngOnInit() {
     this.form = this.formBuilder.group({
@@ -74,23 +75,26 @@ export class CreationProgrammeComponent implements OnInit {
     this.reseauxSelectionnes.push(this.reseaux[index]);
   }
 
+  public sendNewProgram(program: Programme)  {
+    return this.http.post<Programme>('http://127.0.0.1:5000/api/programs', program).subscribe();
+  }
+
   public validateCreation() {
     const newProgramm: Programme = {
       id: 4,
       name: this.form.controls.name.value,
+      active: true,
       days: this.daysSelectionnes,
       startTime: this.form.controls.startTime.value,
-      arrosageReseaux: this.computeReseaux(),
-      active: false
+      arrosageReseaux: this.computeReseaux()
     };
 
     if (this.form.status === 'VALID' && this.reseauxSelectionnes.length >= 1) {
       this.activeModal.close();
     }
 
-    // TO-DO : Appel api vers création d'un programme
-
     console.log(newProgramm);
+    this.sendNewProgram(newProgramm);
   }
 
   public computeReseaux(): ArrosageReseau[] {
