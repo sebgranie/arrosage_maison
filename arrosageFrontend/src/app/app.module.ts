@@ -10,6 +10,9 @@ import { CreationProgrammeComponent } from './pages/programmes/creation-programm
 import { ModificationProgrammeComponent } from './pages/programmes/modification-programme/modification-programme.component';
 import { SupressionProgrammeComponent } from './pages/programmes/supression-programme/supression-programme.component';
 import { ProgrammesComponent } from './pages/programmes/programmes.component';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { CalendarModule, DateAdapter } from 'angular-calendar';
+import { adapterFactory } from 'angular-calendar/date-adapters/date-fns';
 
 @NgModule({
   declarations: [
@@ -23,6 +26,11 @@ import { ProgrammesComponent } from './pages/programmes/programmes.component';
     ProgrammesComponent
   ],
   imports: [
+    BrowserAnimationsModule,
+    CalendarModule.forRoot({
+      provide: DateAdapter,
+      useFactory: adapterFactory,
+    }),
     FormsModule,
     BrowserModule,
     AppRoutingModule
