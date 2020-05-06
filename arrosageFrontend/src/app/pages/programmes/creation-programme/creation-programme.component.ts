@@ -3,6 +3,7 @@ import { NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
 import { FormGroup, FormArray, FormBuilder, FormControl, Validators } from '@angular/forms';
 import { Programme } from '../../../shared/models/programme';
 import { Reseau } from '../../../shared/models/reseau';
+import { ArrosageReseau } from '../../../shared/models/arrosage-reseau';
 
 @Component({
   selector: 'app-creation-programme',
@@ -75,11 +76,12 @@ export class CreationProgrammeComponent implements OnInit {
 
   public validateCreation() {
     const newProgramm: Programme = {
-      id: '4',
+      id: 4,
       name: this.form.controls.name.value,
       days: this.daysSelectionnes,
       startTime: this.form.controls.startTime.value,
-      reseaux: this.computeReseaux()
+      arrosageReseaux: this.computeReseaux(),
+      active: false
     };
 
     if (this.form.status === 'VALID' && this.reseauxSelectionnes.length >= 1) {
@@ -91,10 +93,9 @@ export class CreationProgrammeComponent implements OnInit {
     console.log(newProgramm);
   }
 
-  public computeReseaux(): Reseau[] {
+  public computeReseaux(): ArrosageReseau[] {
 
     const durations: number[] = [];
-    // tslint:disable-next-line: prefer-for-of
     for (let i = 0; i < this.reseauxSelectionnes.length; i++) {
       if (+this.reseauxSelectionnes[i].substring(this.reseauxSelectionnes[i].length - 1, this.reseauxSelectionnes[i].length) === 1) {
         durations.push(this.form.controls.durationReseau1.value);
@@ -105,7 +106,7 @@ export class CreationProgrammeComponent implements OnInit {
       }
     }
 
-    const reseaux: Reseau[] = [];
+    const reseaux: ArrosageReseau[] = [];
     for (let i = 0; i < this.reseauxSelectionnes.length; i++) {
       reseaux.push({
         id: +this.reseauxSelectionnes[i].substring(this.reseauxSelectionnes[i].length - 1, this.reseauxSelectionnes[i].length),
