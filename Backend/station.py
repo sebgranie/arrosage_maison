@@ -20,10 +20,11 @@ def GetAllStations():
         data = json.load(json_file)
         stations = []
         for station_json in data['stations']:
-            coordinates = []
-            for i in range(len(station_json['x'])):
-                coordinates.append((station_json['x'][i], station_json['y'][i]))
-            station = Station(station_json['id'], station_json['location'], coordinates)
+            # polygons = []
+            # polygon = []
+            # for i in range(len(station_json['polygons'])):
+            #     polygon.append((station_json['polygons'][i], station_json['polygons'][i]))
+            station = Station(station_json['id'], station_json['location'])
             stations.append(station)
         return stations
 

@@ -3,6 +3,7 @@
     {
       "id": "1",
       "name": "Arrosage Pelouse du Matin",
+      "active": true,
       "days": [
         "Lundi",
         "Mardi",
@@ -12,9 +13,10 @@
         "Samedi",
         "Dimanche"
       ],
-      "start-time": [
-        "6:00"
-      ],
+      "startTime": {
+        "hour": 6,
+        "minutes": 0
+      },
       "reseaux": [
         {
           "id": 1,

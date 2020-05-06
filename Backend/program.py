@@ -11,7 +11,8 @@ class ProgramManager():
       self.programs = programs
 
     def __del__(self):
-        SaveProgramsToJson(self.programs)
+        pass
+        # SaveProgramsToJson(self.programs)
 
 def GetAllProgramsAsJSON():
     with open(programs_file) as json_file:
@@ -22,7 +23,7 @@ def GetAllPrograms():
         data = json.load(json_file)
         programs = []
         for programs_json in data['programs']:
-
+          pass
         return programs
 
 if __name__ == "__main__":
