@@ -26,5 +26,10 @@ def GetAllPrograms():
           pass
         return programs
 
+def WriteProgramsAsJSONToFile(programs):
+    with open(programs_file, 'w') as json_file:
+        json.dump(programs, json_file)
+
+
 if __name__ == "__main__":
     print(GetAllProgramsAsJSON())

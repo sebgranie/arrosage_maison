@@ -18,7 +18,7 @@ import localeFr from '@angular/common/locales/fr';
 registerLocaleData(localeFr);
 import { NgbModalModule } from '@ng-bootstrap/ng-bootstrap';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
-
+import { HttpClientModule } from '@angular/common/http';
 
 
 @NgModule({
@@ -43,7 +43,8 @@ import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
     NgbModalModule,
     FormsModule,
     BrowserModule,
-    AppRoutingModule
+    AppRoutingModule,
+    HttpClientModule
   ],
   providers: [],
   bootstrap: [AppComponent]
