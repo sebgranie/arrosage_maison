@@ -2,9 +2,9 @@ import { Component, OnInit } from '@angular/core';
 import { NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
 import { FormGroup, FormArray, FormBuilder, FormControl, Validators } from '@angular/forms';
 import { Programme } from '../../../shared/models/programme';
-import { Reseau } from '../../../shared/models/reseau';
 import { ArrosageReseau } from '../../../shared/models/arrosage-reseau';
 import { HttpClient } from '@angular/common/http';
+import { ProgrammeService } from '../programme.service';
 
 @Component({
   selector: 'app-creation-programme',
@@ -22,7 +22,11 @@ export class CreationProgrammeComponent implements OnInit {
   form: FormGroup;
   tableauDeReseaux: string[];
 
-  constructor(private formBuilder: FormBuilder, public activeModal: NgbActiveModal, private http: HttpClient) { }
+  constructor(
+    private formBuilder: FormBuilder,
+    public activeModal: NgbActiveModal,
+    private http: HttpClient,
+    private programService: ProgrammeService) { }
 
   ngOnInit() {
     this.form = this.formBuilder.group({
@@ -75,10 +79,6 @@ export class CreationProgrammeComponent implements OnInit {
     this.reseauxSelectionnes.push(this.reseaux[index]);
   }
 
-  public sendNewProgram(program: Programme)  {
-    return this.http.post<Programme>('http://127.0.0.1:5000/api/programs', program).subscribe();
-  }
-
   public validateCreation() {
     const newProgramm: Programme = {
       id: 4,
@@ -94,7 +94,7 @@ export class CreationProgrammeComponent implements OnInit {
     }
 
     console.log(newProgramm);
-    this.sendNewProgram(newProgramm);
+    this.programService.addProgram(newProgramm);
   }
 
   public computeReseaux(): ArrosageReseau[] {
@@ -120,7 +120,6 @@ export class CreationProgrammeComponent implements OnInit {
         }
       });
     }
-
     return reseaux;
   }
 

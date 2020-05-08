@@ -19,6 +19,7 @@ registerLocaleData(localeFr);
 import { NgbModalModule } from '@ng-bootstrap/ng-bootstrap';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { HttpClientModule } from '@angular/common/http';
+import { ProgrammeService } from './pages/programmes/programme.service';
 
 
 @NgModule({
@@ -46,7 +47,7 @@ import { HttpClientModule } from '@angular/common/http';
     AppRoutingModule,
     HttpClientModule
   ],
-  providers: [],
+  providers: [ProgrammeService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
