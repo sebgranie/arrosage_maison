@@ -9,7 +9,6 @@ import { CreationProgrammeComponent } from './pages/programmes/creation-programm
 import { SupressionProgrammeComponent } from './pages/programmes/supression-programme/supression-programme.component';
 
 const routes: Routes = [
-  { path: '', component: JumbotronComponent },
   { path: 'jumbotron', component: JumbotronComponent },
   { path: 'planning', component: PlanningComponent },
   { path: 'reseau', component: ReseauComponent },

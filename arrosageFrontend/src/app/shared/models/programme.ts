@@ -11,3 +11,8 @@ export interface Programme {
   };
   arrosageReseaux: ArrosageReseau[];
 }
+
+
+export interface Programs {
+  programs: Programme[]
+}
