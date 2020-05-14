@@ -81,7 +81,7 @@ export class CreationProgrammeComponent implements OnInit {
 
   public validateCreation() {
     const newProgramm: Programme = {
-      id: 4,
+      id: this.programService.programs.length + 1,
       name: this.form.controls.name.value,
       active: true,
       days: this.daysSelectionnes,
@@ -93,12 +93,10 @@ export class CreationProgrammeComponent implements OnInit {
       this.activeModal.close();
     }
 
-    console.log(newProgramm);
     this.programService.addProgram(newProgramm);
   }
 
   public computeReseaux(): ArrosageReseau[] {
-
     const durations: number[] = [];
     for (let i = 0; i < this.reseauxSelectionnes.length; i++) {
       if (+this.reseauxSelectionnes[i].substring(this.reseauxSelectionnes[i].length - 1, this.reseauxSelectionnes[i].length) === 1) {

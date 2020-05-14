@@ -29,7 +29,6 @@ export class JumbotronComponent implements OnInit {
 
   public openCreationModal() {
     const modalRef = this.modalService.open(CreationProgrammeComponent);
-    modalRef.componentInstance.name = 'World';
   }
 
 }

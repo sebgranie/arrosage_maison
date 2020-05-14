@@ -1,1 +1,78 @@
-<p>modification-programme works!</p>
+<div class="modal-header">
+    <h4 class="modal-title">Modification d'un programme</h4>
+    <button type="button" class="close" aria-label="Close" (click)="activeModal.dismiss('Cross click')">
+      <span aria-hidden="true">&times;</span>
+    </button>
+  </div>
+  <div class="modal-body">
+  
+    <div [formGroup]="form">
+      <div class="input-group mb-3">
+        <div class="input-group-prepend">
+          <span class="input-group-text" id="basic-addon1">Nom du programme</span>
+        </div>
+        <input type="text" class="form-control" formControlName="name" value="{{program.name}}"
+          aria-label="Nom du programme" aria-describedby="basic-addon1">
+      </div>
+  
+  
+      <div style="padding: 20px;">
+        <div style="font-weight: 600;">
+          Jours d'activités
+        </div>
+        <br />
+        <div class="form-check form-check-inline" *ngFor="let control of daysArray.controls; let i = index">
+          <input class="form-check-input" [formControl]="control" type="checkbox" id="inlineCheckbox{{i}}"
+            (change)="addValeurJoursSelectionnes()">
+          <label class="form-check-label" for="inlineCheckbox{{i}}">{{days[i]}}</label>
+        </div>
+      </div>
+  
+      <div style="padding: 20px;" class="row">
+        <div class="col" style="padding-top: 45px;font-weight: 600;">
+          Heure de départ :
+        </div>
+        <div class="col">
+          <ngb-timepicker formControlName="startTime"></ngb-timepicker>
+        </div>
+      </div>
+  
+      <div style="padding: 20px;">
+        <div style="font-weight: 600;">
+          Réseaux
+        </div>
+        <br />
+  
+        <div style="padding-bottom: 20px;" class="form-check form-check-inline"
+          *ngFor="let control of reseauxArray.controls; let i = index">
+          <input class="form-check-input" [formControl]="control" type="checkbox" id="inlineCheckbox{{i}}"
+            (change)="addValeurReseauxSelectionnes(i)">
+          <label class="form-check-label" for="inlineCheckbox{{i}}">{{reseaux[i]}}</label>
+        </div>
+  
+        <br />
+  
+        <div *ngFor="let reseau of reseauxSelectionnes">
+  
+          <div class="input-group mb-3">
+            <div class="input-group-prepend">
+              <span class="input-group-text">Temps d'activité du {{reseau}}</span>
+            </div>
+            <input type="number" class="form-control" formControlName="duration{{reseau}}"
+              aria-label="Durée du programme">
+            <div class="input-group-append">
+              <span class="input-group-text">minutes</span>
+            </div>
+          </div>
+  
+        </div>
+  
+      </div>
+  
+    </div>
+  
+    <div class="modal-footer">
+      <button type="button" class="btn btn-success" (click)="validateCreation()">Valider</button>
+      <button type="button" class="btn btn-outline-dark" (click)="activeModal.close('Close click')">Close</button>
+    </div>
+  
