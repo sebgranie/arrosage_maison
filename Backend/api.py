@@ -5,6 +5,7 @@ from flask_cors import CORS
 
 from station import Station, GetAllStations, GetAllStationsAsJSON
 from program import Program, GetAllPrograms, GetAllProgramsAsJSON, WriteProgramsAsJSONToFile
+from events import GetCalendarEvents
 
 class StationsAPI(Resource):
     def get(self):
@@ -40,17 +41,23 @@ class ProgramsAPI(Resource):
         print(programs)
         WriteProgramsAsJSONToFile(programs)
 
-class ProgramsAPI_2(Resource):
+class DeleteProgramsAPI(Resource):
     def delete(self, program_id):
         programs = GetAllProgramsAsJSON()
-        program_deleted = False
         out_programs = {}
         out_programs['programs'] = []
         for program in programs['programs']:
             if int(program["id"]) != int(program_id):
                 out_programs['programs'].append(program)
-                program_deleted = True
         WriteProgramsAsJSONToFile(out_programs)
+
+class EventsAPI(Resource):
+    def post(self):
+        parser.add_argument('endDate', type=str, required=True, help='No end data found.')
+        args = parser.parse_args()
+        end_date = json.loads(args['endDate'].replace("\'", "\""))
+        return GetCalendarEvents(GetAllProgramsAsJSON(), end_date)
+
 
 if __name__ == "__main__":
 
@@ -63,6 +70,7 @@ if __name__ == "__main__":
 
     api.add_resource(StationsAPI, '/api/stations/')
     api.add_resource(ProgramsAPI, '/api/programs')
-    api.add_resource(ProgramsAPI_2, '/api/programs/<program_id>')
+    api.add_resource(DeleteProgramsAPI, '/api/programs/<program_id>')
+    api.add_resource(EventsAPI, '/api/events/')
 
     app.run(debug=True)

@@ -20,15 +20,24 @@
       "arrosageReseaux": [
         {
           "id": 1,
-          "duration": 10
+          "duration": {
+            "hour": 0,
+            "minute": 10
+          }
         },
         {
           "id": 2,
-          "duration": 5
+          "duration": {
+            "hour": 0,
+            "minute": 5
+          }
         },
         {
           "id": 3,
-          "duration": 5
+          "duration": {
+            "hour": 0,
+            "minute": 5
+          }
         }
       ]
     },
