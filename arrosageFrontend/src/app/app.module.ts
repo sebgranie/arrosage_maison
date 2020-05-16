@@ -20,6 +20,7 @@ import { NgbModalModule } from '@ng-bootstrap/ng-bootstrap';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { HttpClientModule } from '@angular/common/http';
 import { ProgrammeService } from './pages/programmes/programme.service';
+import { PlanningService } from './pages/planning/planning.service';
 
 
 @NgModule({
@@ -47,7 +48,7 @@ import { ProgrammeService } from './pages/programmes/programme.service';
     AppRoutingModule,
     HttpClientModule
   ],
-  providers: [ProgrammeService],
+  providers: [ProgrammeService, PlanningService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

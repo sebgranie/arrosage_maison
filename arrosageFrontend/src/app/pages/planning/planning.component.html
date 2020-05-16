@@ -31,7 +31,11 @@
     </div>
   </div>
 </div>
+
 <br />
+<div style="color: red">{{errorMessage}}</div>
+<br />
+
 <div [ngSwitch]="view">
   <mwl-calendar-month-view *ngSwitchCase="CalendarView.Month" [viewDate]="viewDate" [events]="events"
     [refresh]="refresh" [activeDayIsOpen]="activeDayIsOpen" (eventClicked)="handleEvent($event.event)"

@@ -55,8 +55,7 @@ class EventsAPI(Resource):
     def post(self):
         parser.add_argument('endDate', type=str, required=True, help='No end data found.')
         args = parser.parse_args()
-        end_date = json.loads(args['endDate'].replace("\'", "\""))
-        return GetCalendarEvents(GetAllProgramsAsJSON(), end_date)
+        return GetCalendarEvents(GetAllProgramsAsJSON(), args['endDate'])
 
 
 if __name__ == "__main__":
@@ -71,6 +70,6 @@ if __name__ == "__main__":
     api.add_resource(StationsAPI, '/api/stations/')
     api.add_resource(ProgramsAPI, '/api/programs')
     api.add_resource(DeleteProgramsAPI, '/api/programs/<program_id>')
-    api.add_resource(EventsAPI, '/api/events/')
+    api.add_resource(EventsAPI, '/api/events')
 
     app.run(debug=True)

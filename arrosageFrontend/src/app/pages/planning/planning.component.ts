@@ -1,9 +1,9 @@
 import {
   Component,
-  ChangeDetectionStrategy
+  ChangeDetectionStrategy,
+  OnInit
 } from '@angular/core';
 import {
-  startOfDay,
   isSameDay,
   isSameMonth,
 } from 'date-fns';
@@ -15,6 +15,9 @@ import {
   CalendarView,
 } from 'angular-calendar';
 import { DatePipe } from '@angular/common';
+import { PlanningService } from './planning.service';
+import { CalendarEventQuery } from './interface';
+
 
 const colors: any = {
   red: {
@@ -37,7 +40,7 @@ const colors: any = {
   templateUrl: './planning.component.html',
   styleUrls: ['./planning.component.css']
 })
-export class PlanningComponent {
+export class PlanningComponent implements OnInit {
 
   view: CalendarView = CalendarView.Month;
   CalendarView = CalendarView;
@@ -60,29 +63,51 @@ export class PlanningComponent {
 
   refresh: Subject<any> = new Subject();
 
-  events: CalendarEvent[] = [
-    {
-      start: new Date(2020, 4, 11, 6, 30, 0),
-      title: 'Programme nuit',
-      color: colors.red,
-      actions: this.actions,
-      allDay: false,
-      resizable: {
-        beforeStart: true,
-        afterEnd: true,
-      },
-      draggable: true,
-    }
-  ];
-
+  events: CalendarEvent[];
+  errorMessage: string = '';
   activeDayIsOpen = true;
 
-  constructor() { }
+  constructor(private planningService: PlanningService) { }
+
+  ngOnInit() {
+
+    const date : CalendarEventQuery = {
+      endDate: new Date(2020, 4, 20)
+    }
+    
+    this.planningService.getCalendarEvents(date).subscribe(
+      (calendartEvents) => {
+        console.log(calendartEvents);
+        this.events = calendartEvents;
+      }, (error) => {
+        this.errorMessage = 'Aucun évènement calendrier n\'a pu être récupéré depuis le serveur'
+        console.log(error);
+        this.events = [];
+      }
+    )
+    
+    // this.events = [
+    //   {
+    //     start: new Date(2020, 4, 11, 6, 30, 0),
+    //     title: 'Programme nuit',
+    //     color: colors.red,
+    //     actions: this.actions,
+    //     allDay: false,
+    //     resizable: {
+    //       beforeStart: true,
+    //       afterEnd: true,
+    //     },
+    //     draggable: true,
+    //   }
+    // ];
+  }
 
   public handleEvent(event: CalendarEvent) {
     const pipe = new DatePipe('fr-FR');
     console.log('Titre du programme : ' + event.title);
-    console.log('Start time : ' + pipe.transform(event.start, 'medium'));
+    // console.log('Start time : ' + pipe.transform(event.start, 'medium'));
+    console.log('Start time : ' + event.start);
+
   }
 
   dayClicked({ date, events }: { date: Date; events: CalendarEvent[] }): void {
