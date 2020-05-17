@@ -3,6 +3,7 @@
     {
       "location": "Devant la télé",
       "id": "1",
+      "gpio": 17,
       "polygons": [
         [
           {
@@ -27,6 +28,7 @@
     {
       "location": "Jets Longs",
       "id": "2",
+      "gpio": 18,
       "polygons": [
         [
           {
@@ -65,16 +67,19 @@
     {
       "location": "Goutte à goutte",
       "id": "3",
+      "gpio": 22,
       "polygons":[]
     },
     {
       "location": "Jardin Mediterranéen",
       "id": "4",
+      "gpio": 23,
       "polygons": []
     },
     {
       "location": "Devant la cuisine",
       "id": "5",
+      "gpio": 27,
       "polygons": []
     }
   ]

@@ -40,35 +40,6 @@
           }
         }
       ]
-    },
-    {
-      "id": 2,
-      "name": "32edecr",
-      "active": true,
-      "days": [
-        "Lundi",
-        "Mardi"
-      ],
-      "startTime": {
-        "hour": 21,
-        "minute": 59
-      },
-      "arrosageReseaux": [
-        {
-          "id": 2,
-          "duration": {
-            "hour": 0,
-            "minute": 12
-          }
-        },
-        {
-          "id": 3,
-          "duration": {
-            "hour": 0,
-            "minute": 23
-          }
-        }
-      ]
     }
   ]
 }
