@@ -12,7 +12,7 @@ class Station(object):
         return f"Station(id={self.id}, location={self.location}, image_locations={self.image_location})"
 
 def GetAllStationsAsJSON():
-    with open(stations_file) as json_file:
+    with open(stations_file, encoding = 'utf-8') as json_file:
         return json.load(json_file)
 
 def GetAllStations():

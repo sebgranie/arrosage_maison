@@ -1,0 +1,81 @@
+{
+  "stations": [
+    {
+      "location": "Devant la télé",
+      "id": "1",
+      "polygons": [
+        [
+          {
+            "x": 100,
+            "y": 100
+          },
+          {
+            "x": 300,
+            "y": 100
+          },
+          {
+            "x": 300,
+            "y": 300
+          },
+          {
+            "x": 100,
+            "y": 300
+          }
+        ]
+      ]
+    },
+    {
+      "location": "Jets Longs",
+      "id": "2",
+      "polygons": [
+        [
+          {
+            "x": 600,
+            "y": 100
+          },
+          {
+            "x": 800,
+            "y": 100
+          },
+          {
+            "x": 800,
+            "y": 400
+          },
+          {
+            "x": 500,
+            "y": 200
+          }
+        ],
+        [
+          {
+            "x": 100,
+            "y": 500
+          },
+          {
+            "x": 200,
+            "y": 500
+          },
+          {
+            "x": 150,
+            "y": 700
+          }
+        ]
+      ]
+    },
+    {
+      "location": "Goutte à goutte",
+      "id": "3",
+      "polygons":[]
+    },
+    {
+      "location": "Jardin Mediterranéen",
+      "id": "4",
+      "polygons": []
+    },
+    {
+      "location": "Devant la cuisine",
+      "id": "5",
+      "polygons": []
+    }
+  ]
+}

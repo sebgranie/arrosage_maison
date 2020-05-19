@@ -1,1 +1,16 @@
-<img class="img-fluid" style="max-width: 100%; height: auto;" src='../../../assets/DJI_0453.JPG' />
+<div class="row">
+    <div class="col" *ngIf="stations">
+        <div class="title">Stations</div>
+        <br />
+        <div *ngFor="let station of stations">
+            <button type="button" (click)="toggleButton(station)"
+                class="btn btn-secondary btn-lg btn-block">{{station.location}} <div
+                    *ngIf="this.activity.get(station.id)">💧</div></button>
+            <br />
+        </div>
+    </div>
+    <div class="col">
+        <img class="img-fluid" style="max-width: 100%; max-height: 700px; padding-top: 40px; padding-bottom: 30px;"
+            src='../../../assets/reseaux.jpg' />
+    </div>
+</div>
