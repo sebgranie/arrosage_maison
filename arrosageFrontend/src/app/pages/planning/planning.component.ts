@@ -16,7 +16,7 @@ import {
 } from 'angular-calendar';
 import { DatePipe } from '@angular/common';
 import { PlanningService } from './planning.service';
-import { CalendarEventQuery } from './interface';
+import { CalendarEventQuery, CalendarEventResponse } from './interface';
 
 
 const colors: any = {
@@ -31,6 +31,14 @@ const colors: any = {
   yellow: {
     primary: '#e3bc08',
     secondary: '#FDF1BA',
+  },
+  green: {
+    primary: '#2e8016',
+    secondary: '#b8f5a6',
+  },
+  pink: {
+    primary: '#8c1486',
+    secondary: '#ffbafc',
   },
 };
 
@@ -72,34 +80,32 @@ export class PlanningComponent implements OnInit {
   ngOnInit() {
 
     const date : CalendarEventQuery = {
-      endDate: new Date(2020, 4, 20)
+      endTimestamp: (new Date(2020, 6, 1)).getTime() / 1000
     }
-    
+
     this.planningService.getCalendarEvents(date).subscribe(
       (calendartEvents) => {
         console.log(calendartEvents);
-        this.events = calendartEvents;
+        this.events = this.buildCalendarEvents(calendartEvents);
+        console.log(this.events)
       }, (error) => {
         this.errorMessage = 'Aucun évènement calendrier n\'a pu être récupéré depuis le serveur'
         console.log(error);
         this.events = [];
       }
     )
-    
-    // this.events = [
-    //   {
-    //     start: new Date(2020, 4, 11, 6, 30, 0),
-    //     title: 'Programme nuit',
-    //     color: colors.red,
-    //     actions: this.actions,
-    //     allDay: false,
-    //     resizable: {
-    //       beforeStart: true,
-    //       afterEnd: true,
-    //     },
-    //     draggable: true,
-    //   }
-    // ];
+  }
+
+  public buildCalendarEvents(events: CalendarEventResponse[]) {
+    const calendarEvents: CalendarEvent[] = [];
+    events.forEach(event => {
+      calendarEvents.push({
+      start: new Date(event.timestamp * 1000),
+      end: new Date((event.timestamp * 1000) + (event.durationMinutes * 60 * 1000)),
+      title: event.title,
+      color: colors[event.color]
+    })});
+    return calendarEvents;
   }
 
   public handleEvent(event: CalendarEvent) {

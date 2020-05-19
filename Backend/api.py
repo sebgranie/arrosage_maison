@@ -6,6 +6,7 @@ from flask_cors import CORS
 from station import Station, GetAllStations, GetAllStationsAsJSON
 from program import Program, GetAllPrograms, GetAllProgramsAsJSON, WriteProgramsAsJSONToFile
 from events import GetCalendarEvents
+from water_now import SetupGPIOs, WaterNow, StopAllWater
 
 class StationsAPI(Resource):
     def get(self):
@@ -53,10 +54,24 @@ class DeleteProgramsAPI(Resource):
 
 class EventsAPI(Resource):
     def post(self):
-        parser.add_argument('endDate', type=str, required=True, help='No end data found.')
+        parser.add_argument('endTimestamp', type=int, required=True, help='No end data found.')
         args = parser.parse_args()
-        return GetCalendarEvents(GetAllProgramsAsJSON(), args['endDate'])
+        return GetCalendarEvents(GetAllProgramsAsJSON(), \
+                                 GetAllStationsAsJSON(), \
+                                 int(args['endTimestamp']))
 
+class ImmediateWateringAPI(Resource):
+    def get(self):
+        return
+
+    def post(self):
+        parser.add_argument('id', type=int, required=True, help='No id found.')
+        parser.add_argument('minutes', type=int, required=True, help='No id found.')
+        args = parser.parse_args()
+        WaterNow(args['id'], args['minutes'])
+
+    def delete(self):
+        StopAllWater()
 
 if __name__ == "__main__":
 
@@ -65,11 +80,13 @@ if __name__ == "__main__":
     cors = CORS(app, resources={r"/api/*": {"origins": "*"}})
     parser = reqparse.RequestParser()
 
-    stations = GetAllStations()
+    stations = GetAllStationsAsJSON()
+    SetupGPIOs(stations['stations'])
 
     api.add_resource(StationsAPI, '/api/stations/')
     api.add_resource(ProgramsAPI, '/api/programs')
     api.add_resource(DeleteProgramsAPI, '/api/programs/<program_id>')
     api.add_resource(EventsAPI, '/api/events')
+    api.add_resource(ImmediateWateringAPI, '/api/water')
 
     app.run(debug=True)

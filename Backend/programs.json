@@ -38,6 +38,20 @@
             "hour": 0,
             "minute": 5
           }
+        },
+        {
+          "id": 4,
+          "duration": {
+            "hour": 0,
+            "minute": 15
+          }
+        },
+        {
+          "id": 5,
+          "duration": {
+            "hour": 0,
+            "minute": 20
+          }
         }
       ]
     }
