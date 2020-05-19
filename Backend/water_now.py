@@ -1,8 +1,9 @@
 import sys
-
-import fake_rpi
-sys.modules['RPi'] = fake_rpi.RPi
-sys.modules['RPi.GPIO'] = fake_rpi.RPi.GPIO # Fake GPIO
+import os
+if os.uname().nodename != "raspberrypi":
+  import fake_rpi
+  sys.modules['RPi'] = fake_rpi.RPi
+  sys.modules['RPi.GPIO'] = fake_rpi.RPi.GPIO # Fake GPIO
 
 import RPi.GPIO as GPIO
 from time import sleep
