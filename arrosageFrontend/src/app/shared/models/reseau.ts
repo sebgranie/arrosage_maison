@@ -21,6 +21,6 @@ export interface StationTrigger {
 
 
 export interface WateringStates {
+  gpio: boolean;
   id: number;
-  isActive: boolean;
 }

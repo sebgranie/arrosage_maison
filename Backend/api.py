@@ -17,6 +17,7 @@ class ProgramsAPI(Resource):
         return GetAllProgramsAsJSON()
 
     def post(self):
+        parser = reqparse.RequestParser()
         parser.add_argument('name', type=str, required=True, help='New program doesn\'t have a name')
         parser.add_argument('active', type=bool, required=True, help='New program doesn\'t have an active field')
         parser.add_argument('days', action='append', required=True, help='Can\'t decode days of the week')
@@ -54,6 +55,7 @@ class DeleteProgramsAPI(Resource):
 
 class EventsAPI(Resource):
     def post(self):
+        parser = reqparse.RequestParser()
         parser.add_argument('endTimestamp', type=int, required=True, help='No end data found.')
         args = parser.parse_args()
         return GetCalendarEvents(GetAllProgramsAsJSON(), \
@@ -65,6 +67,7 @@ class ImmediateWateringAPI(Resource):
         return PollAllGPIOs(GetAllStationsAsJSON()['stations'])
 
     def post(self):
+        parser = reqparse.RequestParser()
         parser.add_argument('id', type=int, required=True, help='No id found.')
         parser.add_argument('minutes', type=int, required=True, help='No id found.')
         args = parser.parse_args()
@@ -78,7 +81,6 @@ if __name__ == "__main__":
     app = Flask(__name__)
     api = Api(app)
     cors = CORS(app, resources={r"/api/*": {"origins": "*"}})
-    parser = reqparse.RequestParser()
 
     stations = GetAllStationsAsJSON()
     SetupGPIOs(stations['stations'])
