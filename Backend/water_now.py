@@ -41,7 +41,7 @@ def WaterNow(stations, id, time):
     # before starting a new one
     StopAllWater(stations)
 
-    if id < 0 or id >= len(stations):
+    if id <= 0 or id > len(stations):
         print(f"Id: {id} is out of range. Won't water now.")
         return
 
