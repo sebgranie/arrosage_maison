@@ -44,7 +44,6 @@ const colors: any = {
 
 @Component({
   selector: 'app-planning',
-  changeDetection: ChangeDetectionStrategy.OnPush,
   templateUrl: './planning.component.html',
   styleUrls: ['./planning.component.css']
 })

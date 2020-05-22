@@ -24,6 +24,7 @@ export class ReseauComponent implements OnInit {
 
     this.reseauService.getWateringStates().subscribe(
       (wateringStates) => {
+        console.log(wateringStates);
         this.activity = wateringStates;
       }
     )
