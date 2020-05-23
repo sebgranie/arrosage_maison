@@ -2,3 +2,20 @@
     padding-top: 30px;
     font-size: 25px;
 }
+
+.container{
+    width: 100%;
+    display: flex;
+    flex-direction: row;
+}
+
+.stations{
+    width: 100%;
+}
+
+@media screen and (max-width: 900px) {
+    .container{
+        display: flex;
+        flex-direction: column;
+    }
+  }

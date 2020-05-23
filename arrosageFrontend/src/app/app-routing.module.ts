@@ -1,6 +1,5 @@
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
-import { JumbotronComponent } from './pages/jumbotron/jumbotron.component';
 import { PlanningComponent } from './pages/planning/planning.component';
 import { ReseauComponent } from './pages/reseau/reseau.component';
 import { ProgrammesComponent } from './pages/programmes/programmes.component';
@@ -9,7 +8,6 @@ import { CreationProgrammeComponent } from './pages/programmes/creation-programm
 import { SupressionProgrammeComponent } from './pages/programmes/supression-programme/supression-programme.component';
 
 const routes: Routes = [
-  { path: 'jumbotron', component: JumbotronComponent },
   { path: 'planning', component: PlanningComponent },
   { path: 'reseau', component: ReseauComponent },
   { path: 'programmes', component: ProgrammesComponent },

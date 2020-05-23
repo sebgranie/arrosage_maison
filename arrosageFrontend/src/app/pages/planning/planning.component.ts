@@ -69,7 +69,8 @@ export class PlanningComponent implements OnInit {
   ];
 
   refresh: Subject<any> = new Subject();
-
+  dayEndHour = 9;
+  dayStartHour = 7;
   events: CalendarEvent[];
   errorMessage: string = '';
   activeDayIsOpen = true;
@@ -78,7 +79,7 @@ export class PlanningComponent implements OnInit {
 
   ngOnInit() {
 
-    const date : CalendarEventQuery = {
+    const date: CalendarEventQuery = {
       endTimestamp: (new Date(2020, 6, 1)).getTime() / 1000
     }
 
@@ -99,18 +100,18 @@ export class PlanningComponent implements OnInit {
     const calendarEvents: CalendarEvent[] = [];
     events.forEach(event => {
       calendarEvents.push({
-      start: new Date(event.timestamp * 1000),
-      end: new Date((event.timestamp * 1000) + (event.durationMinutes * 60 * 1000)),
-      title: event.title,
-      color: colors[event.color]
-    })});
+        start: new Date(event.timestamp * 1000),
+        end: new Date((event.timestamp * 1000) + (event.durationMinutes * 60 * 1000)),
+        title: event.title,
+        color: colors[event.color]
+      })
+    });
     return calendarEvents;
   }
 
   public handleEvent(event: CalendarEvent) {
     const pipe = new DatePipe('fr-FR');
     console.log('Titre du programme : ' + event.title);
-    // console.log('Start time : ' + pipe.transform(event.start, 'medium'));
     console.log('Start time : ' + event.start);
 
   }

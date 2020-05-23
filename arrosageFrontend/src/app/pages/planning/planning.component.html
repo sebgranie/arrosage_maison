@@ -45,7 +45,8 @@
     (dayClicked)="dayClicked($event.day)" (eventClicked)="handleEvent($event.event)"
     (eventTimesChanged)="eventTimesChanged($event)">
   </mwl-calendar-week-view>
-  <mwl-calendar-day-view *ngSwitchCase="CalendarView.Day" [viewDate]="viewDate" [events]="events" [refresh]="refresh"
+  <mwl-calendar-day-view *ngSwitchCase="CalendarView.Day" [dayStartHour]="dayStartHour" [dayEndHour]="dayEndHour"
+    [hourSegmentHeight]="150" [viewDate]="viewDate" [events]="events" [refresh]="refresh"
     (eventTimesChanged)="eventTimesChanged($event)">
   </mwl-calendar-day-view>
 </div>

@@ -2,7 +2,6 @@ import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
-import { JumbotronComponent } from './pages/jumbotron/jumbotron.component';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { PlanningComponent } from './pages/planning/planning.component';
 import { ReseauComponent } from './pages/reseau/reseau.component';
@@ -27,7 +26,6 @@ import { ReseauService } from './pages/reseau/reseau.service';
 @NgModule({
   declarations: [
     AppComponent,
-    JumbotronComponent,
     PlanningComponent,
     ReseauComponent,
     CreationProgrammeComponent,

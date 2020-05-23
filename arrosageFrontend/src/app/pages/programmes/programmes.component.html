@@ -1,19 +1,22 @@
 <table class="table">
-    <thead>
-      <tr>
-        <th scope="col">Id</th>
-        <th scope="col">Nom</th>
-        <th scope="col">Prochain lancement</th>
-        <th scope="col">Action</th>
-      </tr>
-    </thead>
-    <tbody>
-        <tr *ngFor="let program of programs; let i = index">
-            <th scope="row">{{ program.id }}</th>
-            <td>{{ program.name }}</td>
-            <td>{{program.days[0]}} à {{program.startTime.hour}}h</td>
-            <td> <button class="btn btn-outline-secondary" type="button" (click)="editProgram(program)" style="margin-right: 20px;">Editer</button> 
-                <button class="btn btn-outline-danger" (click)="deleteProgram(program.id)" type="button" >Supprimer</button></td>
-        </tr>
-    </tbody>
+  <thead>
+    <tr>
+      <th scope="col">Id</th>
+      <th scope="col">Nom</th>
+      <th scope="col">Prochain lancement</th>
+      <th scope="col">Action</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr *ngFor="let program of programs; let i = index">
+      <th scope="row">{{ program.id }}</th>
+      <td>{{ program.name }}</td>
+      <td>{{program.days[0]}} à {{program.startTime.hour}}h</td>
+      <td><button class="btn btn-outline-secondary" type="button" (click)="editProgram(program)"
+          style="margin-right: 20px;">⚙️</button>
+        <button class="btn btn-outline-danger" (click)="deleteProgram(program.id)" type="button">❌</button>
+      </td>
+
+    </tr>
+  </tbody>
 </table>
