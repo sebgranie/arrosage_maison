@@ -2,7 +2,7 @@ import { Component, OnInit, OnDestroy } from '@angular/core';
 import { Station, WateringStates } from '../../shared/models/reseau';
 import { HttpClient } from '@angular/common/http';
 import { ReseauService } from './reseau.service';
-import { Subscription } from 'rxjs';
+import { Subscription, timer } from 'rxjs';
 
 @Component({
   selector: 'app-reseau',
@@ -14,6 +14,8 @@ export class ReseauComponent implements OnInit, OnDestroy {
   stations: Station[];
   activity: WateringStates[] = [];
   subscriptions: Subscription[] = [];
+  interval;
+  source = timer(1000, 2000);
 
   constructor(private http: HttpClient, private reseauService: ReseauService) { }
 
@@ -23,24 +25,21 @@ export class ReseauComponent implements OnInit, OnDestroy {
         this.stations = stations.stations;
       }
     );
-
-    let getActivity$ = this.reseauService.getWateringStates().subscribe(
-      (wateringStates) => {
-        console.log(wateringStates);
-        this.activity = wateringStates;
-      }
-    )
-    this.subscriptions.push(getActivity$);
+    this.startGettingWateringStates();
     this.subscriptions.push(getStations$);
   }
 
-  public getWateringStates() {
-    this.reseauService.getWateringStates().subscribe(
-      (wateringStates) => {
-        console.log(wateringStates);
-        this.activity = wateringStates;
-      }
-    )
+
+  public startGettingWateringStates() {
+    this.interval = setInterval(() => {
+      let watering$ = this.reseauService.getWateringStates().subscribe(
+        (wateringStates) => {
+          console.log(wateringStates);
+          this.activity = wateringStates;
+          watering$.unsubscribe();
+        }
+      )
+    }, 2000)
   }
 
   public toggleButton(station: Station) {
@@ -48,14 +47,12 @@ export class ReseauComponent implements OnInit, OnDestroy {
       this.reseauService.triggerWatering(station).subscribe(
         (res) => {
           console.log(res);
-          this.getWateringStates();
         }
       );
     } else {
       this.reseauService.stopWatering().subscribe(
         (res) => {
           console.log(res);
-          this.getWateringStates();
         }
       );
     }
@@ -68,3 +65,4 @@ export class ReseauComponent implements OnInit, OnDestroy {
   }
 
 }
+
