@@ -4,10 +4,10 @@ from flask import Flask
 from flask_restful import Resource, Api, reqparse
 from flask_cors import CORS
 
-from station import Station, GetAllStations, GetAllStationsAsJSON
-from program import Program, GetAllPrograms, GetAllProgramsAsJSON, WriteProgramsAsJSONToFile
+from station import GetAllStationsAsJSON
+from program import GetAllProgramsAsJSON, WriteProgramsAsJSONToFile
 from events import GetCalendarEvents
-from water_now import SetupGPIOs, WaterNow, StopAllWater, PollAllGPIOs
+from water import SetupGPIOs, WaterNow, StopAllWater, PollAllGPIOs
 
 class StationsAPI(Resource):
     def get(self):
@@ -59,23 +59,21 @@ class EventsAPI(Resource):
         parser = reqparse.RequestParser()
         parser.add_argument('endTimestamp', type=int, required=True, help='No end data found.')
         args = parser.parse_args()
-        return GetCalendarEvents(GetAllProgramsAsJSON(), \
-                                 GetAllStationsAsJSON(), \
-                                 int(args['endTimestamp']))
+        return GetCalendarEvents(int(args['endTimestamp']))
 
 class ImmediateWateringAPI(Resource):
     def get(self):
-        return PollAllGPIOs(GetAllStationsAsJSON()['stations'])
+        return PollAllGPIOs()
 
     def post(self):
         parser = reqparse.RequestParser()
         parser.add_argument('id', type=int, required=True, help='No id found.')
         parser.add_argument('minutes', type=int, required=True, help='No minutes found.')
         args = parser.parse_args()
-        WaterNow(GetAllStationsAsJSON()['stations'], args['id'], args['minutes'])
+        WaterNow(args['id'], args['minutes'])
 
     def delete(self):
-        StopAllWater(GetAllStationsAsJSON()['stations'])
+        StopAllWater()
 
 if __name__ == "__main__":
     # Argument Parsing
@@ -93,6 +91,7 @@ if __name__ == "__main__":
     api = Api(app)
     cors = CORS(app, resources={r"/api/*": {"origins": "*"}})
 
+    SetupGPIOs()
     api.add_resource(StationsAPI, '/api/stations/')
     api.add_resource(ProgramsAPI, '/api/programs')
     api.add_resource(DeleteProgramsAPI, '/api/programs/<program_id>')

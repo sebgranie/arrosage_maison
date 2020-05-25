@@ -1,6 +1,9 @@
 from datetime import date, datetime, timedelta
 import calendar
 
+from station import GetAllStationsAsJSON
+from program import GetAllProgramsAsJSON
+
 weekDays = [
     "Lundi",
     "Mardi",
@@ -13,10 +16,15 @@ weekDays = [
 
 colors = ['red', 'blue', 'yellow', 'green', 'pink']
 
-def Timestamp(date):
+def Timestamp(date: datetime):
     return calendar.timegm(date.timetuple())
 
-def GetCalendarEvents(programs, reseaux, end_timestamp):
+def GetTimestampInMinutesFromNow(minutes: int):
+    today = datetime.today()
+    today+= timedelta(minutes=minutes)
+    return Timestamp(today)
+
+def GetCalendarEvents(end_timestamp: int):
     '''
     Computes CalendarEvents from the existing programs and returns all of those
     taking place before the provided end_timestamp.
@@ -36,8 +44,9 @@ def GetCalendarEvents(programs, reseaux, end_timestamp):
     # print(f"re_today: {re_today}, timestamp: {calendar.timegm(today.timetuple())}")
 
     calendar_events = []
-    reseaux = reseaux['stations']
-    for program in programs['programs']:
+    reseaux = GetAllStationsAsJSON()['stations']
+    programs = GetAllProgramsAsJSON()['programs']
+    for program in programs:
         print(f"Computing CalendarEvents for the program: {program['id']}")
         # Computing the datetime object representing the start of the program
         running_date = datetime.today()
