@@ -1,0 +1,75 @@
+<nav class="navbar sticky-top  navbar-expand-md navbar-dark bg-dark">
+    <a class="navbar-brand over" (click)="scrollToElement('accueil')">🌱</a>
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#mainNavBar">
+        <span class="navbar-toggler-icon"></span>
+    </button>
+
+    <div class="collapse navbar-collapse" id="mainNavBar">
+        <ul class="navbar-nav mr-auto">
+
+            <li class="nav-item">
+                <a class="nav-link over" (click)="scrollToElement('planning')">Planning</a>
+            </li>
+
+            <li class="nav-item">
+                <a class="nav-link over" (click)="scrollToElement('reseau')">Réseau</a>
+            </li>
+
+            <li class="nav-item">
+                <a class="nav-link over" (click)="scrollToElement('programmes')">Programmes</a>
+            </li>
+
+        </ul>
+
+        <div>
+            <button class="btn btn-outline-danger" (click)="logout()">Déconnexion</button>
+        </div>
+
+    </div>
+</nav>
+
+
+
+
+
+<div id="accueil" style="height: calc(40vh); text-align: center; color: white ;
+      background: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)), url(../../../assets/pool.png) center center;
+      background-size:     cover;
+      background-repeat:   no-repeat;
+      background-position: center center; ">
+    <h1>Tourne-Goutte</h1>
+</div>
+
+<div id="planning" style="height: 100%; text-align: center; background-color: #D3D3D3">
+    <h1>Planning </h1>
+
+    <div class="container">
+        <app-planning></app-planning>
+    </div>
+
+</div>
+
+<div id="reseau" style=" text-align: center; background-color: #DCDCDC">
+    <h1>Réseau</h1>
+    <app-reseau></app-reseau>
+</div>
+
+
+
+<div id="programmes" style="height: 100vh; text-align: center; background-color: #D3D3D3;">
+
+    <h1>Programmes</h1>
+
+    <div style="padding: 50px;" class="row">
+        <div style="padding: 20px;" class="col">
+            <app-programmes></app-programmes>
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col">
+            <button class="btn btn-success" (click)="openCreationModal()">Nouveau programme</button>
+        </div>
+    </div>
+
+</div>

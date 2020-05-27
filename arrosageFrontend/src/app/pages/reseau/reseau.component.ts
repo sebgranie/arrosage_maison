@@ -37,8 +37,7 @@ export class ReseauComponent implements OnInit, OnDestroy {
           console.log(wateringStates);
           this.activity = wateringStates;
           watering$.unsubscribe();
-        }
-      )
+        })
     }, 2000)
   }
 

@@ -21,7 +21,20 @@ import { HttpClientModule } from '@angular/common/http';
 import { ProgrammeService } from './pages/programmes/programme.service';
 import { PlanningService } from './pages/planning/planning.service';
 import { ReseauService } from './pages/reseau/reseau.service';
+import { AngularFireModule } from "@angular/fire";
+import { AngularFireAuthModule } from "@angular/fire/auth";
+import { LoginComponent } from './pages/login/login.component';
+import { FeedComponent } from './pages/feed/feed.component';
 
+const firebaseConfig = {
+  apiKey: "AIzaSyBiqG-OsmhcboX5pmdbEwcY55C1zi-BbXw",
+  authDomain: "arrosagemaison.firebaseapp.com",
+  databaseURL: "https://arrosagemaison.firebaseio.com",
+  projectId: "arrosagemaison",
+  storageBucket: "arrosagemaison.appspot.com",
+  messagingSenderId: "225135513809",
+  appId: "1:225135513809:web:8f5029de09d264c6c535f0"
+}
 
 @NgModule({
   declarations: [
@@ -31,9 +44,14 @@ import { ReseauService } from './pages/reseau/reseau.service';
     CreationProgrammeComponent,
     ModificationProgrammeComponent,
     SupressionProgrammeComponent,
-    ProgrammesComponent
+    ProgrammesComponent,
+    LoginComponent,
+    FeedComponent
   ],
   imports: [
+    ReactiveFormsModule,
+    AngularFireModule.initializeApp(firebaseConfig),
+    AngularFireAuthModule,
     BrowserAnimationsModule,
     CalendarModule.forRoot({
       provide: DateAdapter,
@@ -48,6 +66,7 @@ import { ReseauService } from './pages/reseau/reseau.service';
     HttpClientModule
   ],
   providers: [ProgrammeService, PlanningService, ReseauService],
-  bootstrap: [AppComponent]
+  bootstrap: [AppComponent],
+  entryComponents: [CreationProgrammeComponent, ModificationProgrammeComponent]
 })
 export class AppModule { }
