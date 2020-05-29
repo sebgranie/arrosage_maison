@@ -1,6 +1,7 @@
 #!/usr/bin/env python3.7
 
 from datetime import datetime
+import time
 
 import water
 import station
@@ -15,6 +16,11 @@ def GetListOfIdsCurrentlyWatering():
         if i['gpio']:
             active_ids.append(i['id'])
     return active_ids
+
+def StopWaterForId(id: int):
+    print(f"Watering exceeded timestamp, stopping station {id}")
+    water.StopAllWater()
+    water.WriteLiveWaterAsJSONToFile(water.BuildEmptyLiveWaterDeadlines())
 
 def Run():
     '''
@@ -51,10 +57,15 @@ def Run():
         water.StopAllWater()
         water.WriteLiveWaterAsJSONToFile(water.BuildEmptyLiveWaterDeadlines())
     end_timestamp = live_water['deadlines'][0]['end_timestamp']
+    if (end_timestamp - timestamp_now) > (60 * 20):
+        print(f"Watering end in: {(end_timestamp - timestamp_now)/60.0} minutes from now exceeded the 20 minutes threshold.\nThere is a problem.\nStopping water now.")
     if (timestamp_now > end_timestamp):
-        print("Watering exceeded timestamp, stopping now.")
-        water.StopAllWater()
-        water.WriteLiveWaterAsJSONToFile(water.BuildEmptyLiveWaterDeadlines())
+        StopWaterForId(live_water['deadlines'][0]['id'])
+    elif (end_timestamp - timestamp_now) <= 57:
+        remaining_time = end_timestamp - timestamp_now
+        print(f"Remaining watering time ({remaining_time}) less than a minute. Waiting to stop right on time...")
+        time.sleep(remaining_time)
+        StopWaterForId(live_water['deadlines'][0]['id'])
     else:
         print(f"Current timestamp: {timestamp_now} is not exceeding end timestamp: {end_timestamp} for station id {live_water['deadlines'][0]['id']}")
         print(f"Remaining watering time: {end_timestamp - timestamp_now} seconds.")

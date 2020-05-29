@@ -38,13 +38,10 @@ def SetupGPIOs():
         print("Error: no station list provided")
         return
 
-    # Let's make sure the live water schedule is empty
+    # Let's make sure the live water schedule is valid
     live_water = GetLiveWaterScheduleAsJSON()
     if live_water is None or "deadlines" not in live_water:
-        print("Error: Missing deadlines key in live water json file")
-        live_water = BuildEmptyLiveWaterDeadlines()
-    if len(live_water['deadlines']):
-        print("Warning: Live Water schedule not empty. Emptying now.")
+        print("\nERROR: Missing deadlines key in live water json file\n")
         live_water = BuildEmptyLiveWaterDeadlines()
 
     GPIO.setmode(GPIO.BCM)
