@@ -57,7 +57,6 @@ def SetupGPIOs():
     # Saving water state (all off)
     WriteLiveWaterAsJSONToFile(live_water)
 
-
 def PollAllGPIOs():
     stations = GetAllStationsAsJSON()['stations']
     if not len(stations):
@@ -108,7 +107,9 @@ def StopAllWater():
         return
 
     try:
+        GPIO.setmode(GPIO.BCM)
         for station in stations:
+            GPIO.setup(station['gpio'], GPIO.OUT)
             GPIO.output(station['gpio'], GPIO.LOW)
         WriteLiveWaterAsJSONToFile(BuildEmptyLiveWaterDeadlines())
     except KeyboardInterrupt:
@@ -116,4 +117,4 @@ def StopAllWater():
 
 
 if __name__ == "__main__":
-    SetupGPIOs
+    SetupGPIOs()

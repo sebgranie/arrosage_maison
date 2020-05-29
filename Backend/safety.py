@@ -1,4 +1,4 @@
-#!/usr/bin/env python3.8
+#!/usr/bin/env python3.7
 
 from datetime import datetime
 
@@ -22,6 +22,8 @@ def Run():
     possible to ensure that we are properly shutting closing the watering
     stations.
     '''
+    water.SetupGPIOs()
+
     live_water = water.GetLiveWaterScheduleAsJSON()
     if "deadlines" not in live_water:
         print("Error: Missing deadlines key in live water json. Adding it.")
