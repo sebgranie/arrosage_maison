@@ -83,8 +83,7 @@ if __name__ == "__main__":
     args = parser.parse_args()
 
     # Initialise the GPIOs pins
-    stations = GetAllStationsAsJSON()
-    SetupGPIOs(stations['stations'])
+    SetupGPIOs()
 
     # Flask API
     app = Flask(__name__)

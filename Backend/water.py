@@ -93,6 +93,7 @@ def WaterNow(id: int, minutes: int):
         deadline['id'] = id
         deadline['end_timestamp'] = GetTimestampInMinutesFromNow(minutes)
         live_water['deadlines'].append(deadline)
+        print(f"Started to water station {id} for {minutes} minutes.")
         WriteLiveWaterAsJSONToFile(live_water)
     except KeyboardInterrupt:
         GPIO.cleanup()
