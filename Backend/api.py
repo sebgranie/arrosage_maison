@@ -1,4 +1,5 @@
 import json
+import argparse
 from flask import Flask
 from flask_restful import Resource, Api, reqparse
 from flask_cors import CORS
@@ -69,7 +70,7 @@ class ImmediateWateringAPI(Resource):
     def post(self):
         parser = reqparse.RequestParser()
         parser.add_argument('id', type=int, required=True, help='No id found.')
-        parser.add_argument('minutes', type=int, required=True, help='No id found.')
+        parser.add_argument('minutes', type=int, required=True, help='No minutes found.')
         args = parser.parse_args()
         WaterNow(GetAllStationsAsJSON()['stations'], args['id'], args['minutes'])
 
@@ -77,13 +78,20 @@ class ImmediateWateringAPI(Resource):
         StopAllWater(GetAllStationsAsJSON()['stations'])
 
 if __name__ == "__main__":
+    # Argument Parsing
+    parser = argparse.ArgumentParser(description='API for l\'arrosage')
+    parser.add_argument('--prod', type=bool, default=False, nargs='?', \
+                        const=True, help='Set up production environment')
+    args = parser.parse_args()
 
+    # Initialise the GPIOs pins
+    stations = GetAllStationsAsJSON()
+    SetupGPIOs(stations['stations'])
+
+    # Flask API
     app = Flask(__name__)
     api = Api(app)
     cors = CORS(app, resources={r"/api/*": {"origins": "*"}})
-
-    stations = GetAllStationsAsJSON()
-    SetupGPIOs(stations['stations'])
 
     api.add_resource(StationsAPI, '/api/stations/')
     api.add_resource(ProgramsAPI, '/api/programs')
@@ -91,4 +99,5 @@ if __name__ == "__main__":
     api.add_resource(EventsAPI, '/api/events')
     api.add_resource(ImmediateWateringAPI, '/api/water')
 
-    app.run(debug=True)
+    # Start the application
+    app.run(debug=args.prod, use_reloader=False)
