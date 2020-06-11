@@ -1,6 +1,9 @@
 <div class="container">
-    <div class="stations" *ngIf="stations">
+
+    <div class="stations">
+
         <div class="title">Stations</div>
+        <div *ngIf="!stations" class="stations" #noStations>Aucune station n'a pu être récupérée depuis le serveur</div>
         <br />
         <div *ngFor="let station of stations">
             <button type="button" (click)="toggleButton(station)"
@@ -9,8 +12,10 @@
             <br />
         </div>
     </div>
+
     <div class="picture">
-        <img class="img-fluid" style="max-width: 100%; padding: 40px;"
-            src='../../../assets/reseaux.jpg' />
+
+        <img class="img-fluid" style="max-width: 100%; padding: 40px;" src='../../../assets/reseaux.jpg' />
     </div>
+
 </div>

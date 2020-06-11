@@ -1,5 +1,5 @@
 
 export const environment = {
   production: false,
-  apiPort: 'http://192.168.1.51/'
+  apiPort: 'http://arrosage-maison.mooo.com/'
 };
