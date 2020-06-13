@@ -90,7 +90,6 @@ if __name__ == "__main__":
     api = Api(app)
     cors = CORS(app, resources={r"/api/*": {"origins": "*"}})
 
-    SetupGPIOs()
     api.add_resource(StationsAPI, '/api/stations/')
     api.add_resource(ProgramsAPI, '/api/programs')
     api.add_resource(DeleteProgramsAPI, '/api/programs/<program_id>')

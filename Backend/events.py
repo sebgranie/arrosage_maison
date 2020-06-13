@@ -30,19 +30,6 @@ def GetCalendarEvents(end_timestamp: int):
     taking place before the provided end_timestamp.
     Reminder: weekday() returns the day of the week start at 0 for Monday
     '''
-    # print(end_timestamp)
-    # end_date = datetime.fromtimestamp(end_timestamp)
-    # print(f"end_date: {end_date}, {end_date.timetuple()}")
-    # print(calendar.timegm(end_date.timetuple()))
-    # re_end_date = datetime.utcfromtimestamp(
-    #     calendar.timegm(end_date.timetuple()))
-    # print(f"re_end_date: {re_end_date}")
-
-    # today = datetime.today()
-    # print(f"today: {today}, {today.timetuple()}")
-    # re_today = datetime.utcfromtimestamp(calendar.timegm(today.timetuple()))
-    # print(f"re_today: {re_today}, timestamp: {calendar.timegm(today.timetuple())}")
-
     calendar_events = []
     reseaux = GetAllStationsAsJSON()['stations']
     programs = GetAllProgramsAsJSON()['programs']
