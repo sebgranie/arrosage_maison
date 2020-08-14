@@ -5,6 +5,8 @@ import { Programme } from '../../../shared/models/programme';
 import { ArrosageReseau } from '../../../shared/models/arrosage-reseau';
 import { HttpClient } from '@angular/common/http';
 import { ProgrammeService } from '../programme.service';
+import { ReseauService } from '../../reseau/reseau.service';
+import { Station, ReseauEtTemps } from '../../../shared/models/reseau';
 
 @Component({
   selector: 'app-creation-programme',
@@ -13,10 +15,12 @@ import { ProgrammeService } from '../programme.service';
 })
 export class CreationProgrammeComponent implements OnInit {
 
-  reseaux: Array<string> = ['Reseau1', 'Reseau2', 'Reseau3']; // TO-DO : A récupérer de l'api
+  formControls = new FormArray([]);
+
+  reseaux: Station[];
   days: Array<string> = ['Lundi', 'Mardi', 'Mercredi', 'Jeudi', 'Vendredi', 'Samedi', 'Dimanche'];
 
-  reseauxSelectionnes: Array<string> = [];
+  reseauxSelectionnes: Array<ReseauEtTemps> = [];
   daysSelectionnes: Array<string> = [];
 
   form: FormGroup;
@@ -26,22 +30,31 @@ export class CreationProgrammeComponent implements OnInit {
     private formBuilder: FormBuilder,
     public activeModal: NgbActiveModal,
     private http: HttpClient,
-    private programService: ProgrammeService) { }
+    private programService: ProgrammeService,
+    private reseauService: ReseauService) { }
 
   ngOnInit() {
-    this.form = this.formBuilder.group({
-      favReseaux: this.addReseauxControls(),
-      favDays: this.addDaysControls(),
-      name: new FormControl('', {
-        validators: Validators.required
-      }),
-      startTime: new FormControl({ hour: 0, minute: 0 }, {
-        validators: Validators.required
-      }),
-      durationReseau1: new FormControl(),
-      durationReseau2: new FormControl(),
-      durationReseau3: new FormControl(),
-    });
+
+    this.reseauService.getStations().subscribe(
+      (reseaux) => {
+        this.reseaux = reseaux.stations;
+
+        this.form = this.formBuilder.group({
+          favReseaux: this.addReseauxControls(),
+          favDays: this.addDaysControls(),
+          name: new FormControl('', {
+            validators: Validators.required
+          }),
+          startTime: new FormControl({ hour: 0, minute: 0 }, {
+            validators: Validators.required
+          })
+        });
+
+        this.reseaux.forEach((reseau) => {
+          this.formControls.push(new FormControl(''));
+        })
+      }
+    );
   }
 
   public addReseauxControls() {
@@ -76,7 +89,13 @@ export class CreationProgrammeComponent implements OnInit {
   }
 
   public addValeurReseauxSelectionnes(index: number) {
-    this.reseauxSelectionnes.push(this.reseaux[index]);
+    const arrosageReseauToAdd = {
+      station: this.reseaux[index],
+      duration: {
+        minute: 10
+      }
+    }
+    this.reseauxSelectionnes.push(arrosageReseauToAdd);
   }
 
   public validateCreation() {
@@ -97,24 +116,13 @@ export class CreationProgrammeComponent implements OnInit {
   }
 
   public computeReseaux(): ArrosageReseau[] {
-    const durations: number[] = [];
-    for (let i = 0; i < this.reseauxSelectionnes.length; i++) {
-      if (+this.reseauxSelectionnes[i].substring(this.reseauxSelectionnes[i].length - 1, this.reseauxSelectionnes[i].length) === 1) {
-        durations.push(this.form.controls.durationReseau1.value);
-      } else if (+this.reseauxSelectionnes[i].substring(this.reseauxSelectionnes[i].length - 1, this.reseauxSelectionnes[i].length) === 2) {
-        durations.push(this.form.controls.durationReseau2.value);
-      } else if (+this.reseauxSelectionnes[i].substring(this.reseauxSelectionnes[i].length - 1, this.reseauxSelectionnes[i].length) === 3) {
-        durations.push(this.form.controls.durationReseau3.value);
-      }
-    }
-
     const reseaux: ArrosageReseau[] = [];
     for (let i = 0; i < this.reseauxSelectionnes.length; i++) {
       reseaux.push({
-        id: +this.reseauxSelectionnes[i].substring(this.reseauxSelectionnes[i].length - 1, this.reseauxSelectionnes[i].length),
+        id: this.reseauxSelectionnes[i].station.id,
         duration: {
           hour: 0,
-          minute: durations[i]
+          minute: this.formControls.controls[this.reseauxSelectionnes[i].station.id].value
         }
       });
     }

@@ -48,7 +48,7 @@
           *ngFor="let control of reseauxArray.controls; let i = index">
           <input class="form-check-input" [formControl]="control" type="checkbox" id="inlineCheckbox{{i}}"
             (change)="addValeurReseauxSelectionnes(i)">
-          <label class="form-check-label" for="inlineCheckbox{{i}}">{{reseaux[i]}}</label>
+          <label class="form-check-label" for="inlineCheckbox{{i}}">{{reseaux[i].location}}</label>
         </div>
 
         <br />
@@ -57,9 +57,12 @@
 
           <div class="input-group mb-3">
             <div class="input-group-prepend">
-              <span class="input-group-text">Temps d'activité du {{reseau}}</span>
+              <span class="input-group-text">{{reseau.station.location}}</span>
             </div>
-            <input type="number" class="form-control" formControlName="duration{{reseau}}"
+            <input
+              type="number"
+              class="form-control"
+              [formControl]="formControls.controls[reseau.station.id]"
               aria-label="Durée du programme">
             <div class="input-group-append">
               <span class="input-group-text">minutes</span>

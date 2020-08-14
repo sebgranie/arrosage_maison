@@ -24,3 +24,10 @@ export interface WateringStates {
   gpio: boolean;
   id: number;
 }
+
+export interface ReseauEtTemps {
+  station: Station;
+  duration: {
+    minute: number;
+  }
+}
